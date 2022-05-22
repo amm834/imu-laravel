@@ -23,7 +23,7 @@ class AdminMiddleware
             }
 
             if (session()->get('admin.role') === 'student') {
-                return redirect()->route('student.dashboard');
+                redirect()->route('student.dashboard');
                 return $next($request);
             }
         } else {

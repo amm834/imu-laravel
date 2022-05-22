@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminCourses;
+use App\Models\Courses;
+use App\Models\Payment;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -15,7 +18,9 @@ class EnrollmentController extends Controller
      */
     public function index()
     {
-        return view('enroll');
+        $courses = AdminCourses::all();
+        $payments = Payment::all();
+        return view('enroll', compact('courses', 'payments'));
     }
 
     /**
@@ -47,13 +52,19 @@ class EnrollmentController extends Controller
             'address' => 'required',
             'registration_date' => 'required',
             'payment_type' => 'required',
-            'amount' => 'required'
+            'amount' => 'required',
+            'course_name' => 'required',
         ]);
 
         $data['password'] = Hash::make($data['password']);
 
 
-        $result = Student::create($data);
+        $id = Student::create($data)->id;
+        $result = Courses::create([
+            'name' => $request->course_name,
+            'student_id' => $id,
+        ]);
+
         if ($result) {
             return redirect()->route('login')->with('register_success', 'You Registered Successfully');
         } else {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Courses;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -10,11 +11,14 @@ class StudentUserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        return view('student_dashboard.index');
+        $id = session()->get('admin.id');
+        $student = Student::findOrFail($id);
+        $course = Courses::where('student_id', $student->id)->first();
+        return view('student_dashboard.index', compact('student', 'course'));
     }
 
     /**
@@ -80,9 +84,14 @@ class StudentUserController extends Controller
      */
     public function destroy($id)
     {
-        $result = Student::find($id)->delete();
-        if ($result) {
+        Student::find($id)->delete();
+        Courses::where('student_id', $id)->delete();
+        if (session()->get('admin.role') === 'admin') {
             return redirect()->route('admin.dashboard')->with('student_delete_success', 'Student deleted successfully');
+        }
+        if (session()->get('admin.role') === 'student') {
+            session()->flush();
+            return redirect()->route('home');
         }
     }
 }

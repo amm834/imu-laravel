@@ -80,11 +80,10 @@
                 </div>
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Courses</label>
-                    <select class="form-select" aria-label="Default select example" name="course_name   ">
-                        <option selected>Select Your Course</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                    <select class="form-select" aria-label="Default select example" name="course_name">
+                        @foreach($courses as $course)
+                            <option value="{{$course->name}}">{{$course->name}}</option>
+                        @endforeach
                     </select>
                     @error('course_name')
                     <div class="text-danger">{{ $message }}</div>
@@ -93,10 +92,10 @@
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">Payment Type</label>
                     <select class="form-select" aria-label="Select Your Payment" name="payment_type">
-                        <option>Open this select menu</option>
-                        <option value="1">KBZ</option>
-                        <option value="2">CB</option>
-                        <option value="3">Wave Money</option>
+                        @foreach($payments as $payment)
+                            <option value="{{$payment->name}}">{{$payment->name}}</option>
+                        @endforeach
+
                     </select>
                     @error('payment_type')
                     <div class="text-danger">{{ $message }}</div>

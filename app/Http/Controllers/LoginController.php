@@ -39,6 +39,7 @@ class LoginController extends Controller
         // login success check role
         $role = $student->role;
         $keepSession = [
+            'id' => $student->id,
             'name' => $student->full_name,
             'email' => $student->email,
             'role' => $student->role,

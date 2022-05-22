@@ -36,7 +36,7 @@
                 @endif
                 @if(session()->has('admin') && session()->get('admin.role') === 'student')
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('login')}}">Student Dashboard</a>
+                        <a class="nav-link" href="{{route('student.dashboard')}}">Student Dashboard</a>
                     </li>
                 @endif
                 @if(session()->has('admin') && session()->get('admin.role') === 'admin')
