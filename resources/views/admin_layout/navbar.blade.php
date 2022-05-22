@@ -18,7 +18,7 @@
                     <a class="nav-link activeø" aria-current="page" href="{{route('admin.courses')}}">Courses</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link activeø" aria-current="page" href="">Payments</a>
+                    <a class="nav-link activeø" aria-current="page" href="{{route('payments.index')}}">Payments</a>
                 </li>
 
             </ul>

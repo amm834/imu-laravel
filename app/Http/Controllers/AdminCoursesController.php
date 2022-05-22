@@ -37,8 +37,11 @@ class AdminCoursesController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required'
+            'name' => 'required',
+            'first_sem_fee' => 'required|int',
+            'second_sem_fee' => 'required|int',
         ]);
+        $data['total_fee'] = $data['first_sem_fee'] + $data['second_sem_fee'];
         $result = AdminCourses::create($data);
         if ($result) {
             return redirect()->route('admin.courses')->with('create_course_success',
@@ -65,7 +68,8 @@ class AdminCoursesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $course = AdminCourses::findOrFail($id);
+        return view('admin_dashboard.edit_course', compact('course'));
     }
 
     /**
@@ -77,7 +81,17 @@ class AdminCoursesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'first_sem_fee' => 'required|int',
+            'second_sem_fee' => 'required|int',
+        ]);
+        $data['total_fee'] = $data['first_sem_fee'] + $data['second_sem_fee'];
+        $result = AdminCourses::findOrFail($id)->update($data);
+        if ($result) {
+            return redirect()->route('admin.courses')->with('create_course_success',
+                'Course was updated successfully');
+        }
     }
 
     /**
@@ -86,7 +100,8 @@ class AdminCoursesController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public
+    function destroy($id)
     {
         $result = AdminCourses::destroy($id);
         if ($result) {

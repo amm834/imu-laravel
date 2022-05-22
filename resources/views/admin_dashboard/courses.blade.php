@@ -27,6 +27,10 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
+                <th>First Sem Fee</th>
+                <th>Second Sem Fee</th>
+                <th>Total Fee</th>
+                <th>Name</th>
                 <th colspan="2" class="text-center">Action</th>
             </tr>
             </thead>
@@ -35,10 +39,12 @@
                 <tr>
                     <td>{{$course->id}}</td>
                     <td>{{$course->name}}</td>
+                    <td>{{$course->first_sem_fee}}$</td>
+                    <td>{{$course->second_sem_fee}}$</td>
+                    <td>{{$course->total_fee}}$</td>
                     <td class="text-end">
-                        <form action="{{route('admin.courses.delete',$course->id)}}" method="post">
+                        <form action="{{route('admin.courses.edit',$course->id)}}" method="get">
                             @csrf
-                            @method('put')
                             <button class="btn btn-info">Edit</button>
                         </form>
                     </td>

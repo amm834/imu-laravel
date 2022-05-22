@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminCourses;
 use Illuminate\Http\Request;
 
 class CoursesPageController extends Controller
@@ -13,7 +14,8 @@ class CoursesPageController extends Controller
      */
     public function index()
     {
-        return view('courses');
+        $courses = AdminCourses::all();
+        return view('courses', compact('courses'));
     }
 
     /**

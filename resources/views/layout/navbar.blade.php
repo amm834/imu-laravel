@@ -23,14 +23,35 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{route('contact-us')}}">Contact Us</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('enroll')}}">Enrollment</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{route('login')}}">Login</a>
-                </li>
+                @if(!session()->has('admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('enroll')}}">Enrollment</a>
+                    </li>
+                @endif
+
+                @if(!session()->has('admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('login')}}">Login</a>
+                    </li>
+                @endif
+                @if(session()->has('admin') && session()->get('admin.role') === 'student')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('login')}}">Student Dashboard</a>
+                    </li>
+                @endif
+                @if(session()->has('admin') && session()->get('admin.role') === 'admin')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('admin.dashboard')}}">Admin Dashboard</a>
+                    </li>
+                @endif
+                @if(session()->has('admin'))
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('logout')}}">Logout</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>
 </nav>
+
 {{--    Navbar End--}}
