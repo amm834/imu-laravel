@@ -20,6 +20,7 @@
                         <li class="list-group-item">{{$student->phone_number}}</li>
                         <li class="list-group-item">{{$student->guardian_name}}</li>
                         <li class="list-group-item">{{$student->guardian_phone_number}}</li>
+                        <li class="list-group-item">{{$student->address}}</li>
                         <li class="list-group-item">{{$student->registration_date}}</li>
                         <li class="list-group-item">{{$student->payment_type}}</li>
                         <li class="list-group-item">{{$student->amount}}</li>
